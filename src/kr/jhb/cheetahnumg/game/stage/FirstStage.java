@@ -12,7 +12,8 @@ public class FirstStage implements IGame{
 	private Paint mPaintRed = null;
 	private Paint mPaintBlack = null;
 	
-	private int mDx = 0;
+	private float mDx = 0;
+	// private int mDx = 0; // bad idea
 	
 	@Override
 	public void init() {
@@ -29,7 +30,8 @@ public class FirstStage implements IGame{
 	@Override
 	public void update(long dt) {
 
-		mDx += (int) (dt*0.9);
+		mDx += (dt*0.9); // must use 'float'
+		// mDx += (int)(dt*0.9); // bad idea
 		
 		if (mDx > 900)
 			mDx -= 900;
@@ -43,7 +45,8 @@ public class FirstStage implements IGame{
 	@Override
 	public void render(Canvas c, long dt) {
 
-		c.drawRect(0, 0, 900, 100, mPaintBlack);
+		c.drawColor(Color.WHITE);
+		
 		c.drawRect(0, 0, mDx, 100, mPaintRed);
 		
 		

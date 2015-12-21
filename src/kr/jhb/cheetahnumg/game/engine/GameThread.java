@@ -45,7 +45,7 @@ public class GameThread extends Thread{
 	public void run() {
 		super.run();
 		
-		long now, dt;
+		long now = 0, dt;
 		long last = System.currentTimeMillis();
 		
 		while (isRunning) {
@@ -61,10 +61,10 @@ public class GameThread extends Thread{
 				synchronized (mHolder) {
 					now = System.currentTimeMillis();
 					dt = (now - last);
-					if (dt < MILLIS_PER_FRAME) {
-						//Thread.sleep(MILLIS_PER_FRAME-dt); // not guaranteed 
-						//dt = MILLIS_PER_FRAME;
-						continue;
+					while (dt < MILLIS_PER_FRAME) {
+						Thread.sleep(1);
+						now = System.currentTimeMillis();
+						dt = (now - last);
 					}
 					
 					
@@ -75,7 +75,7 @@ public class GameThread extends Thread{
 					
 					
 					
-					last = now;
+					
 				}
 			}
 			catch(Exception e) {
@@ -87,7 +87,7 @@ public class GameThread extends Thread{
 			}
 			
 			
-			
+			last = now;
 		}
 		
 		
