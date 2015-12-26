@@ -23,7 +23,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 	public void surfaceCreated(SurfaceHolder holder) {
 
 		
-		mGameThread = new GameThread(getHolder());
+		mGameThread = new GameThread(getContext(), getHolder());
 		mGameThread.start();
 		
 		

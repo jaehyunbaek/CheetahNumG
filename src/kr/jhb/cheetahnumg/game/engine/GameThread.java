@@ -1,6 +1,7 @@
 package kr.jhb.cheetahnumg.game.engine;
 
 import kr.jhb.cheetahnumg.game.stage.FirstStage;
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -19,12 +20,13 @@ public class GameThread extends Thread{
 	private FirstStage mStage1;
 	
 	
-	public GameThread(SurfaceHolder holder) {
+	public GameThread(Context context, SurfaceHolder holder) {
 		mHolder = holder;
 		
 		
+		
 		mStage1 = new FirstStage();
-		mStage1.init(holder.getSurfaceFrame());
+		mStage1.init(holder.getSurfaceFrame(), context.getResources().getDisplayMetrics().density);
 	}
 	
 	@Override
