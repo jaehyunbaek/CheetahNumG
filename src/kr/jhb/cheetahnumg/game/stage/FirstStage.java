@@ -3,20 +3,25 @@ package kr.jhb.cheetahnumg.game.stage;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import kr.jhb.cheetahnumg.game.engine.IGame;
 
 public class FirstStage implements IGame{
 
+	
 	private Paint mPaintRed = null;
 	private Paint mPaintBlack = null;
 	
 	private float mDx = 0;
 	// private int mDx = 0; // bad idea
 	
+	protected int mWidth = 0;
+	protected int mHeight = 0;
+	
 	@Override
-	public void init() {
+	public void init(final Rect rect) {
 
 		mPaintRed = new Paint();
 		mPaintRed.setColor(Color.RED);
@@ -25,6 +30,9 @@ public class FirstStage implements IGame{
 		mPaintBlack.setColor(Color.BLACK);
 		
 		mDx = 0;
+		
+		mWidth = rect.width();
+		mHeight = rect.height();
 	}
 
 	@Override

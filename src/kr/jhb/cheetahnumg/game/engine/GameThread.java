@@ -23,10 +23,8 @@ public class GameThread extends Thread{
 		mHolder = holder;
 		
 		
-		
 		mStage1 = new FirstStage();
-		mStage1.init();
-		
+		mStage1.init(holder.getSurfaceFrame());
 	}
 	
 	@Override
@@ -70,10 +68,6 @@ public class GameThread extends Thread{
 					
 					mStage1.update(dt);
 					mStage1.render(c, dt);
-					Log.v("TEST","TEST"+dt);
-					
-					
-					
 					
 					
 				}
