@@ -59,6 +59,25 @@ public class FirstStage implements IGame{
 		mScreenDensity = density;
 		
 		
+		// generate number
+		boolean success = false;
+		for (int i = 0;i < 100 && !success; i++) {
+			success = generateNumber();
+		}
+		
+		if (!success) {
+			// err
+			Log.v("TEST","ERR");
+		}
+		
+		
+	}
+	
+	
+	protected boolean generateNumber() {
+		
+		
+		
 		// generate coordinate
 		for (int i = 1;i <= DEST_NO; i++) {
 			
@@ -66,20 +85,27 @@ public class FirstStage implements IGame{
 			Point p = null;
 			int fontSize = 0;
 			Rect rect = new Rect();
-			
-			
+		
+			int cntLogic = 0;
 			while (flag) {
 				p = new Point( (int)(Math.random() * mScreenWidth), (int)(Math.random() * mScreenHeight));
-				fontSize = (int) ((Math.random() * (FONT_SIZE_MAX - FONT_SIZE_MIN) + FONT_SIZE_MIN)*density);
+				fontSize = (int) ((Math.random() * (FONT_SIZE_MAX - FONT_SIZE_MIN) + FONT_SIZE_MIN)*mScreenDensity);
 				flag = checkCollision(i, p, fontSize, rect);
+				cntLogic++;
+				
+				if (cntLogic > 100)
+					return false;
 			}
+			
+			Log.v("TEST",cntLogic+"");
+			
 			
 			mFontSize[i] = fontSize;
 			//mNumberCoord[i] = p;
 			mNumberRect[i] = rect;
-			
-			
 		}
+		
+		return true;
 	}
 	
 	
@@ -173,6 +199,12 @@ public class FirstStage implements IGame{
 					mNumberRect[mCurNo].top-margin <= y && y <= mNumberRect[mCurNo].bottom+margin) {
 				mCurNo++;
 				Log.v("TESTY",mCurNo+"");
+			} else {
+				
+				// wrong click : give a user a penalty
+				// make black screen
+				
+				
 			}
 			Log.v("TESTN",mCurNo+"");
 		}

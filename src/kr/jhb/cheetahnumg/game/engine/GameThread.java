@@ -75,6 +75,10 @@ public class GameThread extends Thread{
 					}
 					
 					
+					// 해줘야 할 것. 
+					// 1. 터치 하기 전에는 그림을 계속 그릴 필요가 음씀.
+					// 2. 전화 같은거 오는 경우 다시 그려야 하는것 예외 처리.
+					
 					mStage1.update(dt);
 					mStage1.render(c, dt);
 					
