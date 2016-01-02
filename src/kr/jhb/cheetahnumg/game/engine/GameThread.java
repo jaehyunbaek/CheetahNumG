@@ -6,7 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.View.OnTouchListener;
 
 public class GameThread extends Thread{
 
@@ -39,6 +41,11 @@ public class GameThread extends Thread{
 		isRunning = loop;
 	}
 	
+	
+	public void onTouchEvent(MotionEvent e) {
+		if (mStage1 != null)
+			mStage1.onTouchEvent(e);
+	}
 	
 	
 	@Override

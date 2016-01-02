@@ -2,6 +2,7 @@ package kr.jhb.cheetahnumg.game.engine;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -57,4 +58,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 		
 	}
 
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+
+		if (mGameThread != null)
+			mGameThread.onTouchEvent(event);
+		
+		return super.onTouchEvent(event);
+	}
+	
 }

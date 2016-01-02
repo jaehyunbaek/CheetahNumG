@@ -3,7 +3,9 @@ package kr.jhb.cheetahnumg;
 import kr.jhb.cheetahnumg.game.GameActivity;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,7 +46,19 @@ public class MainActivity extends Activity {
 	public void onClickTvTmp(View v) {
 		Intent intent = new Intent(this, GameActivity.class);
 		startActivity(intent);
-
+		
+		/*
+		Rect rt1 = new Rect(10,100,210,300);
+		Rect rt2 = new Rect(5,50,250,200);
+		//Rect rt1 = new Rect(378);
+		//Rect rt2 = new Rect(540,780,624,855);
+		
+		boolean flag = rt1.intersect(rt2);
+		Log.v("TEST",flag+"");
+		Log.v("TEST",rt1.toShortString());
+		Log.v("TEST",rt2.toShortString());
+		*/
+		
 	}
 	
 	
