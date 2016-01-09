@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.MotionEvent;
 import kr.jhb.cheetahnumg.game.engine.IGame;
@@ -24,6 +25,7 @@ public class FirstStage implements IGame{
 	private Paint mPaintRed = null;
 	private Paint mPaintBlack = null;
 	private Paint mPaintFont = null;
+	private Paint mPaintReadyFont = null;
 	
 	private float mDx = 0;
 	
@@ -38,16 +40,41 @@ public class FirstStage implements IGame{
 	protected int mFontSize[] = new int[DEST_NO+1];
 	protected Rect mNumberRect[] = new Rect[DEST_NO+1];
 	
+	protected Context mContext;
+	
+	private long mGameStartTime;
+	private boolean mIsResourceReady = false;
+	private long mPaneltyTime = -1;
+	private boolean mIsPanelty = false;
+	
+	public static boolean GAME_START = false;
+	
 	
 	
 	@Override
 	public void init(Context context, final Rect screenRect, float density) {
 		
+		GAME_START = false;
+		mIsResourceReady = false;
+		
+		mContext = context;
+		
+		mScreenWidth = screenRect.width();
+		mScreenHeight = screenRect.height();
+		mScreenDensity = density;
+		
+		
 		mPaintFont = new Paint();
 		mPaintFont.setColor(Color.BLACK);
-		mPaintFont.setTypeface(EnvSession.getDefaultFont(context));
+		mPaintFont.setTypeface(Typeface.DEFAULT_BOLD);
 		mPaintFont.setTextAlign(Align.LEFT);
-		// mPaintFont.setTextSize(density * 100);
+
+		mPaintReadyFont = new Paint();
+		mPaintReadyFont.setColor(Color.BLACK);
+		mPaintReadyFont.setTextSize(30*mScreenDensity);
+		mPaintReadyFont.setTypeface(Typeface.DEFAULT_BOLD);
+		mPaintReadyFont.setTextAlign(Align.CENTER);
+		
 		
 		mPaintRed = new Paint();
 		mPaintRed.setColor(Color.RED);
@@ -57,9 +84,7 @@ public class FirstStage implements IGame{
 		
 		mDx = 0;
 		
-		mScreenWidth = screenRect.width();
-		mScreenHeight = screenRect.height();
-		mScreenDensity = density;
+		
 		
 		
 		// generate number
@@ -73,7 +98,8 @@ public class FirstStage implements IGame{
 			Log.v("TEST","ERR");
 		}
 		
-		
+		mGameStartTime = System.currentTimeMillis();
+		mIsResourceReady = true;
 	}
 	
 	
@@ -156,11 +182,11 @@ public class FirstStage implements IGame{
 	@Override
 	public void update(long dt) {
 
-		//mDx += (dt*0.9); // must use 'float'
-		//if (mDx > mWidth) mDx-=mWidth;
-		// mDx += (int)(dt*0.9); // bad idea
+		if (mIsResourceReady && (System.currentTimeMillis() - mGameStartTime) >= 3000) {
+			GAME_START = true;
+		}
 		
-		//for (int i = mCurNo)		
+		mIsPanelty = System.currentTimeMillis() - mPaneltyTime < 1000;
 		
 	}
 
@@ -170,19 +196,17 @@ public class FirstStage implements IGame{
 		c.drawColor(Color.WHITE);
 		
 		synchronized (mCurNo) {
-			for (int i = mCurNo; i <= DEST_NO; i++) {
-				mPaintFont.setTextSize(mFontSize[i]);
-				// c.drawText(i+"", mNumberCoord[i].x, mNumberCoord[i].y, mPaintFont);
-				c.drawText(i+"", mNumberRect[i].left, mNumberRect[i].bottom, mPaintFont);
+			
+			if (!GAME_START) {
+				c.drawText("READY", mScreenWidth/2, mScreenHeight/2, mPaintReadyFont);
+			} else {
 				
-				/*
-				{
-					c.drawCircle(mNumberRect[i].left, mNumberRect[i].top, 5, mPaintRed);
-					c.drawCircle(mNumberRect[i].right, mNumberRect[i].bottom, 5, mPaintRed);
-					
-					c.drawCircle(mNumberCoord[i].x, mNumberCoord[i].y, 5, mPaintBlack);
+				
+				
+				for (int i = mCurNo; i <= DEST_NO && !mIsPanelty; i++) {
+					mPaintFont.setTextSize(mFontSize[i]);
+					c.drawText(i+"", mNumberRect[i].left, mNumberRect[i].bottom, mPaintFont);
 				}
-				*/
 			}
 		}
 		
@@ -196,7 +220,7 @@ public class FirstStage implements IGame{
 			int x = (int) e.getX();
 			int y = (int) e.getY();
 			
-			final int margin = (int) (10*mScreenDensity);
+			final int margin = (int) (15*mScreenDensity);
 			
 			if (mNumberRect[mCurNo].left-margin <= x && x <= mNumberRect[mCurNo].right+margin &&
 					mNumberRect[mCurNo].top-margin <= y && y <= mNumberRect[mCurNo].bottom+margin) {
@@ -204,6 +228,7 @@ public class FirstStage implements IGame{
 				Log.v("TESTY",mCurNo+"");
 			} else {
 				
+				mPaneltyTime = System.currentTimeMillis();
 				// wrong click : give a user a penalty
 				// make black screen
 				

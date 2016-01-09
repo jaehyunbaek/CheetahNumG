@@ -2,14 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context="kr.jhb.cheetahnumg.game.GameActivity" >
 
     <TextView
         android:id="@+id/ag_tv_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="13:00"
+        android:textSize="40sp"
+        android:typeface="normal"
+        android:text=""
+        android:textStyle="bold"
+        android:gravity="right|center_vertical"
         android:layout_alignParentTop="true"
         android:background="#ffffff"
         android:textColor="#000000"
