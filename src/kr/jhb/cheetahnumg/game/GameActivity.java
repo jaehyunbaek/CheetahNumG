@@ -4,6 +4,7 @@ import kr.jhb.cheetahnumg.R;
 import kr.jhb.cheetahnumg.game.engine.GameView;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -18,7 +19,9 @@ public class GameActivity extends Activity{
 		setContentView(R.layout.activity_game);
 		
 		LinearLayout v = (LinearLayout)findViewById(R.id.ag_v_game);
-		v.addView(new GameView(this));
+		GameView gameView = new GameView(this);
+		
+		v.addView(gameView);
 		
 		
 	}

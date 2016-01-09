@@ -28,7 +28,7 @@ public class GameThread extends Thread{
 		
 		
 		mStage1 = new FirstStage();
-		mStage1.init(holder.getSurfaceFrame(), context.getResources().getDisplayMetrics().density);
+		mStage1.init(context, holder.getSurfaceFrame(), context.getResources().getDisplayMetrics().density);
 	}
 	
 	@Override

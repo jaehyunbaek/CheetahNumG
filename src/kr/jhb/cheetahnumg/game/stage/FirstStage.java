@@ -1,5 +1,6 @@
 package kr.jhb.cheetahnumg.game.stage;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,6 +12,7 @@ import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 import kr.jhb.cheetahnumg.game.engine.IGame;
+import kr.jhb.cheetahnumg.util.EnvSession;
 
 public class FirstStage implements IGame{
 
@@ -39,10 +41,11 @@ public class FirstStage implements IGame{
 	
 	
 	@Override
-	public void init(final Rect screenRect, float density) {
+	public void init(Context context, final Rect screenRect, float density) {
 		
 		mPaintFont = new Paint();
 		mPaintFont.setColor(Color.BLACK);
+		mPaintFont.setTypeface(EnvSession.getDefaultFont(context));
 		mPaintFont.setTextAlign(Align.LEFT);
 		// mPaintFont.setTextSize(density * 100);
 		

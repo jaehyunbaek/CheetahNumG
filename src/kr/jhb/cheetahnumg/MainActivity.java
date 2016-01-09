@@ -1,14 +1,17 @@
 package kr.jhb.cheetahnumg;
 
 import kr.jhb.cheetahnumg.game.GameActivity;
+import kr.jhb.cheetahnumg.util.EnvSession;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -17,7 +20,15 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		TextView tv = (TextView)findViewById(R.id.am_tv_tmp2);
 		
+		
+		
+		// load resource
+		EnvSession.getDefaultFont(this);
+		
+		//tv.setTypeface(Typeface.createFromAsset(getAssets(), "NanumBarunGothic.ttf"));
+
 		
 	}
 
