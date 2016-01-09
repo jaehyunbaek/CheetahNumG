@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
 		
 		
 		// load resource
-		EnvSession.getDefaultFont(this);
+		
 		
 		//tv.setTypeface(Typeface.createFromAsset(getAssets(), "NanumBarunGothic.ttf"));
 
